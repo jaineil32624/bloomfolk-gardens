@@ -1201,6 +1201,7 @@ func _collect_forage(key: String) -> void:
 		forage_nodes[key].queue_free()
 		forage_nodes.erase(key)
 	GameState.stats["forage"] += 1
+	Audio.play("forage")
 	GameState.add_xp(3)
 	player.play_tool("shovel" if dig else "seed")
 	Events.toast.emit(", ".join(got_text), Color("f0e0a0"))

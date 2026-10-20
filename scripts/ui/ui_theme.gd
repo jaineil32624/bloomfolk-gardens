@@ -94,6 +94,7 @@ static func button(text: String, cb: Callable, min_w: int = 0) -> Button:
 	b.focus_mode = Control.FOCUS_NONE
 	if min_w > 0:
 		b.custom_minimum_size.x = min_w
+	b.pressed.connect(func(): Audio.play("click"))
 	b.pressed.connect(cb)
 	return b
 

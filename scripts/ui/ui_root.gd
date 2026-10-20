@@ -90,6 +90,8 @@ func _on_open_panel(name: String, data: Variant) -> void:
 
 
 func open(name: String) -> void:
+	if current == "":
+		Audio.play("open")
 	current = name
 	dim.visible = true
 	window.visible = true
@@ -98,6 +100,8 @@ func open(name: String) -> void:
 
 
 func close() -> void:
+	if current != "":
+		Audio.play("close")
 	current = ""
 	dim.visible = false
 	window.visible = false
@@ -434,6 +438,7 @@ func _build_shop() -> void:
 
 func _buy(key: String, price: int, qty: int) -> void:
 	if GameState.spend(price * qty):
+		Audio.play("coin")
 		GameState.add_item(key, qty)
 		Events.toast.emit("Bought %d x %s" % [qty, ItemDB.display_name(key)], Color("c8f0a0"))
 
@@ -546,6 +551,7 @@ func _sell(k: String, n: int) -> void:
 	var price := ItemDB.sell_price(k)
 	GameState.remove_item(k, n)
 	GameState.add_coins(price * n)
+	Audio.play("coin")
 	Events.toast.emit("Sold %d x %s for %d coins" % [n, ItemDB.display_name(k), price * n], Color("ffd45a"))
 
 
@@ -713,6 +719,12 @@ func _build_pause() -> void:
 		close()
 		continue_requested.emit()))
 	v.add_child(UI.button("How to Play", func(): open("help")))
+	v.add_child(UI.button("Music: " + ("ON" if Audio.music_on else "OFF"), func():
+		Audio.toggle_music()
+		_rebuild()))
+	v.add_child(UI.button("Sound Effects: " + ("ON" if Audio.sfx_on else "OFF"), func():
+		Audio.sfx_on = not Audio.sfx_on
+		_rebuild()))
 	v.add_child(UI.button("Toggle Fullscreen", func():
 		if DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN:
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)

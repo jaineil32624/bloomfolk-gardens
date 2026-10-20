@@ -18,6 +18,7 @@ ItemDB="*res://scripts/autoload/item_db.gd"
 PixelArt="*res://scripts/autoload/pixel_art.gd"
 GameState="*res://scripts/autoload/game_state.gd"
 SaveManager="*res://scripts/autoload/save_manager.gd"
+Audio="*res://scripts/autoload/audio.gd"
 
 [display]
 

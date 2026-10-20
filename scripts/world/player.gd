@@ -156,6 +156,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 ## Visual + particle feedback for a tool use.
 func play_tool(kind: String) -> void:
+	Audio.play({"water": "water", "shovel": "till", "sickle": "harvest"}.get(kind, "plant"))
 	var tex: Texture2D
 	var col := Color("8a5a3a")
 	match kind:

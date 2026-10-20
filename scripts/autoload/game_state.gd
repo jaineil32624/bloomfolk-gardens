@@ -176,6 +176,7 @@ func add_coins(n: int) -> void:
 func spend(n: int) -> bool:
 	if coins < n:
 		Events.toast.emit("Not enough coins!", Color("ff8a7a"))
+		Audio.play("error")
 		return false
 	coins -= n
 	Events.coins_changed.emit(coins)

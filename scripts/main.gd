@@ -136,6 +136,7 @@ func sleep(passed_out: bool) -> void:
 	_sleeping = true
 	GameState.playing = false
 	player.input_enabled = false
+	Audio.play("sleep")
 	var text := "You passed out from exhaustion..." if passed_out else "Zzz..."
 	await ui.fade_through(func():
 		var res: Dictionary = GameState.new_day()
